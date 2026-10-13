@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { customers, invoices, revenue, users } from '@/app/lib/placeholder-data';
-import sql from '@/app/lib/data';
+import sql from '@/app/lib/db';
 
 async function seedUsers() {
   await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;

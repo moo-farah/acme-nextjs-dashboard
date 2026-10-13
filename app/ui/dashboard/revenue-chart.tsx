@@ -1,29 +1,16 @@
-import { CalendarIcon } from '@heroicons/react/24/outline';
+import { generateYAxis } from '@/app/lib/utils';
+import { fetchRevenue } from '@/app/lib/data';
 import { inter } from '@/app/ui/font';
+import { CalendarIcon } from '@heroicons/react/24/outline';
 
-const revenue = [
-  { month: 'Jan', revenue: 2000 },
-  { month: 'Feb', revenue: 1800 },
-  { month: 'Mar', revenue: 2200 },
-  { month: 'Apr', revenue: 2500 },
-  { month: 'May', revenue: 2300 },
-  { month: 'Jun', revenue: 3200 },
-  { month: 'Jul', revenue: 3500 },
-  { month: 'Aug', revenue: 3700 },
-  { month: 'Sep', revenue: 2500 },
-  { month: 'Oct', revenue: 2800 },
-  { month: 'Nov', revenue: 3000 },
-  { month: 'Dec', revenue: 4800 },
-];
+export default async function RevenueChart() {
+  const revenue = await fetchRevenue();
 
-export default function RevenueChart() {
   const chartHeight = 350;
-  const highestRecord = Math.max(...revenue.map((month) => month.revenue));
-  const topLabel = Math.ceil(highestRecord / 1000) * 1000;
-  const yAxisLabels = [];
+  const { yAxisLabels, topLabel } = generateYAxis(revenue);
 
-  for (let i = topLabel; i >= 0; i -= 1000) {
-    yAxisLabels.push(`$${i / 1000}K`);
+  if (!revenue || revenue.length === 0) {
+    return <p className="mt-4 text-gray-400">No data available.</p>;
   }
 
   return (
