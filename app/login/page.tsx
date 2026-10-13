@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import AcmeLogo from "../ui/acme-logo";
+import LoginForm from "../ui/login-form";
 
 function LoginPage() {
   return (
@@ -11,7 +12,7 @@ function LoginPage() {
           </div>
         </div>
         <Suspense>
-          LoginForm
+          <LoginForm />
         </Suspense>
       </div>
     </main>
