@@ -70,6 +70,49 @@ export function LatestInvoicesSkeleton() {
   );
 }
 
+export function CreateInvoiceFormSkeleton() {
+  return (
+    <div className="rounded-md bg-gray-50 p-4 md:p-6">
+      <div className="mb-4 h-10 w-full rounded-md bg-gray-200" />
+      <div className="mb-4 h-10 w-full rounded-md bg-gray-200" />
+      <div className="h-16 w-full rounded-md bg-gray-200" />
+      <div className="mt-6 flex justify-end gap-4">
+        <div className="h-10 w-20 rounded-lg bg-gray-200" />
+        <div className="h-10 w-32 rounded-lg bg-gray-200" />
+      </div>
+    </div>
+  );
+}
+
+export function InvoicesSearchSkeleton() {
+  return (
+    <div className="h-10 w-full flex-1 rounded-md border border-gray-200 bg-gray-100" />
+  );
+}
+
+export function InvoicesListSkeleton() {
+  return (
+    <>
+      <InvoicesTableSkeleton />
+      <div className="mt-5 flex w-full justify-center">
+        <InvoicesPaginationSkeleton />
+      </div>
+    </>
+  );
+}
+
+export function InvoicesPaginationSkeleton() {
+  return (
+    <div className="flex h-10 w-72 items-center justify-center gap-2">
+      <div className="h-10 w-10 rounded-md bg-gray-200" />
+      <div className="h-10 w-10 rounded-md bg-gray-200" />
+      <div className="h-10 w-10 rounded-md bg-gray-200" />
+      <div className="h-10 w-10 rounded-md bg-gray-200" />
+      <div className="h-10 w-10 rounded-md bg-gray-200" />
+    </div>
+  );
+}
+
 export function InvoicesTableSkeleton() {
   return (
     <div className="mt-6 flow-root">
@@ -124,6 +167,62 @@ export function InvoicesTableSkeleton() {
                       <div className="h-9 w-9 rounded-md bg-gray-200" />
                       <div className="h-9 w-9 rounded-md bg-gray-200" />
                     </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function CustomersTableSkeleton() {
+  return (
+    <div className="mt-6 flow-root">
+      <div className="inline-block min-w-full align-middle">
+        <div className="overflow-hidden rounded-lg bg-gray-50 p-2 md:pt-0">
+          <table className="hidden min-w-full text-gray-900 md:table">
+            <thead className="rounded-lg text-left text-sm font-normal">
+              <tr>
+                <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                  Name
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  Email
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  Total Invoices
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  Total Pending
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  Total Paid
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <tr key={i} className="w-full border-b py-3 text-sm">
+                  <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                    <div className="flex items-center gap-3">
+                      <div className="h-7 w-7 rounded-full bg-gray-200" />
+                      <div className="h-4 w-24 rounded-md bg-gray-200" />
+                    </div>
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                    <div className="h-4 w-40 rounded-md bg-gray-200" />
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                    <div className="h-4 w-12 rounded-md bg-gray-200" />
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                    <div className="h-4 w-16 rounded-md bg-gray-200" />
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                    <div className="h-4 w-16 rounded-md bg-gray-200" />
                   </td>
                 </tr>
               ))}
