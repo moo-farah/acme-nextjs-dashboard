@@ -25,5 +25,17 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+
+      - name: Check required secrets
+        run: |
+          if [ -z "$POSTGRES_URL" ]; then
+            echo "::error::POSTGRES_URL is empty. Add it under Settings → Secrets and variables → Actions (name must be exactly POSTGRES_URL). Values are not read from .env in CI."
+            exit 1
+          fi
+          if [ -z "$AUTH_SECRET" ]; then
+            echo "::error::AUTH_SECRET is empty. Add it under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+
       - run: pnpm run lint
       - run: pnpm run build
