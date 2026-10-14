@@ -1,3 +1,4 @@
+// Next.js 16+ uses `proxy.ts` (replaces deprecated `middleware.ts`). See nextjs.org/docs/messages/middleware-to-proxy
 import NextAuth from 'next-auth';
 import { authConfig } from './auth.config';
 
