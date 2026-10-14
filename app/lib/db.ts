@@ -19,15 +19,19 @@ function getSql(): Sql {
   return sqlInstance;
 }
 
+type SqlCallable = (...args: unknown[]) => unknown;
+
 const sql: Sql = new Proxy(function () {} as unknown as Sql, {
-  apply(_target, _thisArg, args) {
-    return Reflect.apply(getSql() as unknown as Function, _thisArg, args);
+  apply(_target, _thisArg, args: unknown[]) {
+    const fn = getSql() as unknown as SqlCallable;
+    return Reflect.apply(fn, _thisArg, args);
   },
   get(_target, prop, receiver) {
     const value = Reflect.get(getSql() as object, prop, receiver);
-    return typeof value === 'function'
-      ? (value as Function).bind(getSql())
-      : value;
+    if (typeof value !== 'function') {
+      return value;
+    }
+    return (value as SqlCallable).bind(getSql());
   },
 });
 
