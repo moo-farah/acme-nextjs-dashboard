@@ -1,3 +1,6 @@
+'use client';
+
+import { authenticate } from '@/app/lib/auth-actions';
 import { inter } from '@/app/ui/font';
 import {
   AtSymbolIcon,
@@ -5,10 +8,16 @@ import {
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
+import { useActionState } from 'react';
 
 export default function LoginForm() {
+  const [errorMessage, formAction, isPending] = useActionState(
+    authenticate,
+    undefined,
+  );
+
   return (
-    <form className="space-y-3">
+    <form action={formAction} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
         <h1 className={`${inter.className} mb-3 text-2xl`}>
           Please log in to continue.
@@ -30,7 +39,7 @@ export default function LoginForm() {
                 placeholder="Enter your email address"
                 required
               />
-              <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 size-4.5 -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
           <div className="mt-4">
@@ -50,16 +59,24 @@ export default function LoginForm() {
                 required
                 minLength={6}
               />
-              <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <KeyIcon className="pointer-events-none absolute left-3 top-1/2 size-4.5 -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>
         <button
           type="submit"
-          className="mt-4 flex h-10 w-full items-center rounded-lg bg-blue-500 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+          disabled={isPending}
+          aria-disabled={isPending}
+          className="mt-4 flex h-10 w-full items-center rounded-lg bg-blue-500 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+          {isPending ? 'Logging in...' : 'Log in'}
+          <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
         </button>
+        {errorMessage ? (
+          <p className="mt-4 text-sm text-red-500" aria-live="polite">
+            {errorMessage}
+          </p>
+        ) : null}
         <p className="mt-4 text-center text-sm text-gray-600">
           New to Acme?{' '}
           <Link href="/signup" className="font-medium text-blue-500">
